@@ -2,14 +2,16 @@
 
 const switcher = document.getElementById('theme');
 
+var darkmode_enabled = false;
+
 switcher.addEventListener('click', function() {
-    document.body.classList.toggle('dark-theme')
-    var className = document.body.className;
-    console.log('current class name: ' + className);
-    if(className == "light-theme") {
-        this.textContent = "Dark";
-    }
-    else {
-        this.textContent = "Light";
-    }
+  if(!darkmode_enabled) {
+    document.body.className = "dark-theme";
+    this.textContent = "Light"
+  }
+  else {
+    document.body.className = "light-theme";
+    this.textContent = "Dark"
+  }
+  darkmode_enabled = !darkmode_enabled;
 }); 
