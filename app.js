@@ -2,7 +2,7 @@
 
 const switcher = document.getElementById('theme');
 
-var darkmode_enabled = false;
+var darkmode_enabled = true;
 
 switcher.addEventListener('click', function() {
   if(!darkmode_enabled) {
