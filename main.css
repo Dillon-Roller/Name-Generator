@@ -22,6 +22,11 @@ input {
   background-color: var(--inputBg);
 }
 
+.btn-theme {
+  color: var(--btnFontColor);
+  background-color: var(--btnBg);
+}
+
 .btn {
   float: right;
   height: 50px;
