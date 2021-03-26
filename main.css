@@ -17,6 +17,11 @@ ul {
   font-family: helvetica;
 }
 
+input {
+  font-family: helvetica;
+  background-color: var(--inputBg);
+}
+
 .btn {
   float: right;
   height: 50px;
@@ -34,6 +39,7 @@ ul {
   --fontColor: var(--black);
   --btnBg: var(--black);
   --btnFontColor: var(--white);
+  --inputBg: var(--white);
 }
 
 .dark-theme {
@@ -41,4 +47,5 @@ ul {
   --fontColor: var(--green);
   --btnBg: var(--white);
   --btnFontColor: var(--black);
+  --inputBg: #383838;
 }

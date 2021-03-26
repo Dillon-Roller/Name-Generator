@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Name Generation</title>
     <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body class="dark-theme">
     <h1>Name Generation using Markov Chains</h1>
@@ -15,13 +16,15 @@
       <li>Enable switching the theme</li>
     </ul>
 
+    <input type="text" id="text" style="width: 150px;" placeholder="CSV of names"/>
+
     <div>
       <button id="theme" class="btn">Light</button>
     </div>
 
     <!-- Load scripts after webpage is loaded -->
-    <script src="app.js"></script>
-    <noscript>You need to enable JavaScript to view the full site.</noscript>
+    <script src="toggle_theme.js"></script>
+    <script src="markov_chain.js"></script>
 
   </body>
 </html>
