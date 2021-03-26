@@ -1,18 +1,26 @@
 'use strict'
 //Create object for Markov Chain
 function MarkovChain() {
-  this.transitions = [];
-  this.names = [];
+  this.transitions;
+  this.names;
+  this.startLetterCounts;
+  this.endLetterCounts;
+  this.letterCounts;
   
-  this.ctoi = function(c) {
-    c.toLowerCase()
-    c.charCodeAt(0) - 97
+  this.charToInt = function(c) {
+    return c.toLowerCase().charCodeAt(0) - 97;
   };
-  this.updateTransitions = function(word) {
-    return;
+
+  this.intToChar = function(n) {
+    return String.fromCharCode(97 + n)
+  }
+
+  this.updateTransitions = function() {
+
   };
+  
   this.setNames = function(s) {
-    this.names = s.split(',');
+    this.names = s.replace(/,/g, " ");
   };
 }
 
