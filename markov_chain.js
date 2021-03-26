@@ -11,8 +11,7 @@ class MarkovChain {
 
   //tested
   fillArrays() {
-    this.#transitions = this.zeros([26, 26]);
-    console.log(this.#transitions);
+    this.#transitions = this.zeros([27, 27]);
   }
 
   zeros(dimensions) {
@@ -43,14 +42,28 @@ class MarkovChain {
     for(let i = 0; i < this.#names.length - 1; i++) {
       this.update(this.#names[i], this.#names[i + 1]);
     }
-    //last letter always goes to end state
-    this.update(this.#names[this.#names.length - 1], " ");
 
-    //convert frequency to probabilities
+    //last character in list always goes to end state
+    this.update(this.#names[this.#names.length - 1], " ");
+    
+    //convert rows to stochastic vectors
+    for(let i = 0; i < this.#transitions.length; i++) {
+      MarkovChain.normalize(this.#transitions[i]);
+    }
+    console.log(this.#transitions);
   };
 
   update(from, to) {
-    this.#transitions[charToInt(from)][charToInt(to)]++;
+    this.#transitions[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)]++;
+  }
+
+  static normalize(v) {
+    let sum = v.reduce((a, b) => a + b);
+    for(let i in v) {
+      if(v[i] !== 0) {
+        v[i] /= sum;
+      }  
+    }
   }
 
   setNames(s) {
@@ -75,5 +88,5 @@ let markov = new MarkovChain();
 //works
 $("#namesButton").click(function() {
   markov.setNames($("#namesTextBox").val());
-  console.log(`Names: ${markov.getNames()}`);
+  markov.updateTransitions();
 });
