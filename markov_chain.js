@@ -1,40 +1,54 @@
 'use strict'
 //Create object for Markov Chain
-function MarkovChain() {
-  this.transitions;
-  this.names;
-  this.startLetterCounts;
-  this.endLetterCounts;
-  this.letterCounts;
-  
-  this.charToInt = function(c) {
-    return c.toLowerCase().charCodeAt(0) - 97;
-  };
+class MarkovChain {
+  #transitions;
+  #names;
+  #startLetterCounts;
+  #endLetterCounts;
+  #letterCounts;
 
-  this.intToChar = function(n) {
-    return String.fromCharCode(97 + n)
+  constructor() {
+    //fill arrays
   }
 
-  this.updateTransitions = function() {
+  //not tested
+  static charToInt(c) {
+    result = c.toLowerCase().charCodeAt(0) - 97
+    console.log(c + "-->" + result)
+    return result;
+  }
+
+  //not tested
+  static intToChar(n) {
+    return String.fromCharCode(97 + n);
+  }
+
+  //not tested
+  updateTransitions() {
 
   };
-  
-  this.setNames = function(s) {
-    this.names = s.replace(/,/g, " ");
+
+  setNames(s) {
+    this.#names = s.replace(/,/g, " ");
   };
+
+  getNames() {
+    return this.#names;
+  }
 }
 
+//works
 $("#namesTextBox").keyup(function(event) {
   if (event.keyCode === 13) { //enter is pressed in textbox
     $("#namesButton").click();
   }
 });
 
+//create markov object
 let markov = new MarkovChain();
 
-const enterNamesButton = document.getElementById('namesButton');
-enterNamesButton.addEventListener('click', function() {
-  markov.setNames(document.getElementById('namesTextBox').value)
-}); 
-
-
+//works
+$("#namesButton").click(function() {
+  markov.setNames($("#namesTextBox").val());
+  console.log("Names: " + markov.getNames());
+});
