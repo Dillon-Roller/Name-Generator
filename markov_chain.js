@@ -24,12 +24,7 @@ class MarkovChain {
 
   //not tested
   static charToInt(c) {
-    if(c == " ") {
-      return 26; //blank character is end state for chain
-    }
-    else {
-      return c.toLowerCase().charCodeAt(0) - 97;
-    }
+    return c == " " ? 26 : c.toLowerCase().charCodeAt(0) - 97;
   }
 
   //not tested
@@ -68,7 +63,8 @@ class MarkovChain {
 
   setNames(s) {
     //TODO: improve this method
-    this.#names = s.replace(/,/g, " ");
+    s = s.replace(/\s/g, "");
+    this.#names =  " " + s.replace(/,/g, " ");
   };
 
   getNames() {
