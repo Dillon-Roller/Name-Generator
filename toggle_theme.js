@@ -3,8 +3,7 @@
 var darkmode_enabled = true;
 
 //get reference to theme button and add event
-const themeButton = document.getElementById('themeButton');
-themeButton.addEventListener('click', function() {
+$('#themeButton').click(() => {
   if(!darkmode_enabled) {
     document.body.className = "dark-theme";
     this.textContent = "Light"
