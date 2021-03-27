@@ -19,19 +19,15 @@ class MarkovChain {
   }
 
   generateLetters(c) {
-    console.log(`Current letter: ${c}`);
     if(c == " ") { //base case
       return "";
     }
     let index = MarkovChain.charToInt(c);
-    console.log(`char to int: ${c} -> ${index}`);
-    let row = this.#transitions[MarkovChain.charToInt(c)];
-    console.log(`stochastic vector: ${row}`);
+    let row = this.#transitions[index];
     let letter = this.realizeLetter(row);
-    console.log(`Next letter: ${letter}`);
     return letter + this.generateLetters(letter);
   }
-
+  //works
   realizeLetter(v) {
     let sum = 0.0
     let num = Math.random();
