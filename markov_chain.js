@@ -19,11 +19,15 @@ class MarkovChain {
   }
 
   generateLetters(c) {
+    console.log(`Current letter: ${c}`);
     if(c == " ") { //base case
       return "";
     }
+    let index = MarkovChain.charToInt(c);
+    console.log(`char to int: ${c} -> ${index}`);
     let row = this.#transitions[MarkovChain.charToInt(c)];
     let letter = this.realizeLetter(row)
+    console.log(`Next letter: ${letter}`);
     return letter + this.generateLetters(letter);
   }
 
@@ -70,7 +74,6 @@ class MarkovChain {
 
     //last character in list always goes to end state
     this.updateCount(this.#names[this.#names.length - 1], " ");
-    console.log(this.#letterCounts);
   };
 
   updateCount(from, to) {
@@ -79,8 +82,7 @@ class MarkovChain {
 
   updateTransitions() {
     this.copy2dArray(this.#letterCounts, this.#transitions)
-    
-    console.log(this.#transitions);
+  
     //convert rows to stochastic vectors
     for(let i = 0; i < this.#transitions.length; i++) {
       MarkovChain.normalize(this.#transitions[i]);
@@ -101,7 +103,6 @@ class MarkovChain {
   }
 
   setNames(s) {
-    //TODO: improve this method
     s = s.replace(/\s/g, "");
     this.#names =  " " + s.replace(/,/g, " ");
   };
