@@ -19,7 +19,7 @@ class MarkovChain {
   }
 
   generateLetters(c) {
-    let letter = this.realizeLetter(this.#transitions[charToInt(c)])
+    let letter = this.realizeLetter(this.#transitions[MarkovChain.charToInt(c)])
     if(letter == " ") { //base case
       return "";
     }
@@ -29,16 +29,14 @@ class MarkovChain {
 
   realizeLetter(v) {
     let sum = 0
-    let num = random(1);
+    let num = Math.random();
 
     for(let i in v) {
       sum += v[i];
       if(num < sum) {
-        return intToChar(i);
+        return MarkovChain.intToChar(i);
       }
     }
-    //if for some reason num is never less than sum, return last one
-    return intToChar(v.length - 1);
   }
   //tested
   fillArrays() {
@@ -122,4 +120,5 @@ $("#namesButton").click(function() {
   markov.setNames($("#namesTextBox").val());
   markov.updateCounts();
   markov.updateTransitions();
+  console.log(markov.generateName());
 });
