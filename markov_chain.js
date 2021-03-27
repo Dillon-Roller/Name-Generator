@@ -15,25 +15,29 @@ class MarkovChain {
   }
 
   generateName() {
-    let first_letter = this.generateFirstLetter();
-    return first_letter + this.generateLetters(first_letter);
+    return this.generateLetters(" ");
   }
-  generateFirstLetter() {
-    /* last row of transitions tells us the probability of going from blank space to a letter,
-    or in other words, the beginning of a new word */
-    last_row = this.#transitions[charToInt(" ")];
+
+  generateLetters(c) {
+    let letter = this.realizeLetter(this.#transitions[charToInt(c)])
+    if(letter == " ") {
+      return "";
+    }
+    return letter + this.generateLetters(letter);
+  }
+
+  realizeLetter(v) {
     let sum = 0
     let num = random(1);
 
-    for(let i in last_row) {
-      sum += last_row[i];
+    for(let i in v) {
+      sum += v[i];
       if(num < sum) {
         return intToChar(i);
       }
     }
-  }
-  generateLetters(c) {
-
+    //if for some reason num is never less than sum, return last one
+    return intToChar(v.length - 1);
   }
   //tested
   fillArrays() {
