@@ -1,9 +1,14 @@
 'use strict'
 //Create object for Markov Chain
 class MarkovChain {
+  //transitions[i][j] corresponds to the probability that letter i goes to letter j
   #transitions;
+
+  //one long 
   #names;
-  #letterCounts;
+
+  //letterCounts[i][j] corresponds to the number of times letter i goes to letter j
+  #letterCounts; 
 
   constructor() {
     this.fillArrays();
@@ -12,6 +17,7 @@ class MarkovChain {
   //tested
   fillArrays() {
     this.#transitions = this.zeros([27, 27]);
+    this.#letterCounts = this.zeros([27, 27]);
   }
 
   zeros(dimensions) {
@@ -33,23 +39,26 @@ class MarkovChain {
   }
 
   //not tested
-  updateTransitions() {
+  updateCounts() {
     for(let i = 0; i < this.#names.length - 1; i++) {
-      this.update(this.#names[i], this.#names[i + 1]);
+      this.updateCount(this.#names[i], this.#names[i + 1]);
     }
 
     //last character in list always goes to end state
-    this.update(this.#names[this.#names.length - 1], " ");
-    
+    this.updateCount(this.#names[this.#names.length - 1], " ");
+  };
+
+  updateCount(from, to) {
+    this.#letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)]++;
+  }
+
+  updateTransitions() {
+    this.#transitions = [...this.#letterCounts];
     //convert rows to stochastic vectors
     for(let i = 0; i < this.#transitions.length; i++) {
       MarkovChain.normalize(this.#transitions[i]);
     }
     console.log(this.#transitions);
-  };
-
-  update(from, to) {
-    this.#transitions[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)]++;
   }
 
   static normalize(v) {
@@ -85,5 +94,6 @@ let markov = new MarkovChain();
 //works
 $("#namesButton").click(() => {
   markov.setNames($("#namesTextBox").val());
+  markov.updateCounts();
   markov.updateTransitions();
 });
