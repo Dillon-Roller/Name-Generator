@@ -15,25 +15,24 @@ class MarkovChain {
   }
 
   generateName() {
-    return this.generateLetters(" ");
+    return this.generateLetters("a");
   }
 
   generateLetters(c) {
-    let letter = this.realizeLetter(this.#transitions[MarkovChain.charToInt(c)])
-    if(letter == " ") { //base case
+    if(c == " ") { //base case
       return "";
     }
-    //recurse 
+    let letter = this.realizeLetter(this.#transitions[MarkovChain.charToInt(c)])
     return letter + this.generateLetters(letter);
   }
 
   realizeLetter(v) {
-    let sum = 0
+    let sum = 0.0
     let num = Math.random();
 
-    for(let i in v) {
+    for(let i = 0; i < v.length; i++) {
       sum += v[i];
-      if(num < sum) {
+      if(num <= sum) {
         return MarkovChain.intToChar(i);
       }
     }
@@ -59,7 +58,7 @@ class MarkovChain {
 
   //not tested
   static intToChar(n) {
-    return String.fromCharCode(97 + n);
+    return n == 26 ? " " : String.fromCharCode(97 + n);
   }
 
   //not tested
