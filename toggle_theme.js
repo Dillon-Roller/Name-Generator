@@ -1,10 +1,10 @@
 'use strict'
 
-const switcher = document.getElementById('theme');
-
 var darkmode_enabled = true;
 
-switcher.addEventListener('click', function() {
+//get reference to theme button and add event
+const themeButton = document.getElementById('themeButton');
+themeButton.addEventListener('click', function() {
   if(!darkmode_enabled) {
     document.body.className = "dark-theme";
     this.textContent = "Light"
