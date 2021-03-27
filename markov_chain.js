@@ -14,6 +14,10 @@ class MarkovChain {
     this.fillArrays();
   }
 
+  generateName() {
+    /* last row of transitions tells us the probability of going from blank space to a letter,
+    or in other words, the beginning of a new letter */
+  }
   //tested
   fillArrays() {
     this.#transitions = this.zeros([27, 27]);
