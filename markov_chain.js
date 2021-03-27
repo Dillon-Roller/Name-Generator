@@ -20,9 +20,10 @@ class MarkovChain {
 
   generateLetters(c) {
     let letter = this.realizeLetter(this.#transitions[charToInt(c)])
-    if(letter == " ") {
+    if(letter == " ") { //base case
       return "";
     }
+    //recurse 
     return letter + this.generateLetters(letter);
   }
 
