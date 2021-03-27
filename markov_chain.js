@@ -26,7 +26,8 @@ class MarkovChain {
     let index = MarkovChain.charToInt(c);
     console.log(`char to int: ${c} -> ${index}`);
     let row = this.#transitions[MarkovChain.charToInt(c)];
-    let letter = this.realizeLetter(row)
+    console.log(`stochastic vector: ${row}`);
+    let letter = this.realizeLetter(row);
     console.log(`Next letter: ${letter}`);
     return letter + this.generateLetters(letter);
   }
@@ -35,7 +36,7 @@ class MarkovChain {
     let sum = 0.0
     let num = Math.random();
 
-    for(let i = 0; i < 26; i++) {
+    for(let i = 0; i < 27; i++) {
       sum += v[i];
       if(num <= sum) {
         return MarkovChain.intToChar(i);
