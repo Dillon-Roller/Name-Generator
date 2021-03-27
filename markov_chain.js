@@ -1,9 +1,14 @@
 'use strict'
 //Create object for Markov Chain
 class MarkovChain {
+  //transitions[i][j] corresponds to the probability that letter i goes to letter j
   #transitions;
+
+  //one long 
   #names;
-  #letterCounts;
+
+  //letterCounts[i][j] corresponds to the number of times letter i goes to letter j
+  #letterCounts; 
 
   constructor() {
     this.fillArrays();
