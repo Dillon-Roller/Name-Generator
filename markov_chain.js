@@ -67,6 +67,7 @@ class MarkovChain {
   }
 
   setNames(s) {
+    //TODO: improve this method
     this.#names = s.replace(/,/g, " ");
   };
 
