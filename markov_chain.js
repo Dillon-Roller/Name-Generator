@@ -15,16 +15,16 @@ class MarkovChain {
   }
 
   generateName() {
-    return this.generateLetters("a");
+    return this.generateLetters(" ");
   }
 
   generateLetters(c) {
-    if(c == " ") { //base case
-      return "";
-    }
     let index = MarkovChain.charToInt(c);
     let row = this.#transitions[index];
     let letter = this.realizeLetter(row);
+    if(letter == " ") { //base case
+      return "";
+    }
     return letter + this.generateLetters(letter);
   }
   //works
@@ -112,7 +112,7 @@ class MarkovChain {
 //works
 $("#namesTextBox").keyup(event => {
   if (event.keyCode === 13) { //enter is pressed in textbox
-    $("#namesButton").click();
+    $("#updateButton").click();
   }
 });
 
@@ -120,9 +120,12 @@ $("#namesTextBox").keyup(event => {
 let markov = new MarkovChain();
 
 //works
-$("#namesButton").click(() => {
+$("#updateButton").click(() => {
   markov.setNames($("#namesTextBox").val());
   markov.updateCounts();
   markov.updateTransitions();
-  console.log(`Generated name: ${markov.generateName()}`);
+});
+
+$('#generateButton').click(() => {
+  $('#generatedName').text(`Generated name: ${markov.generateName()}`);
 });
