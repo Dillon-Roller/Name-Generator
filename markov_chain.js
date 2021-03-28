@@ -110,7 +110,7 @@ class MarkovChain {
 }
 
 //works
-$("#namesTextBox").keyup(function(event) {
+$("#namesTextBox").keyup(event => {
   if (event.keyCode === 13) { //enter is pressed in textbox
     $("#namesButton").click();
   }
@@ -120,7 +120,7 @@ $("#namesTextBox").keyup(function(event) {
 let markov = new MarkovChain();
 
 //works
-$("#namesButton").click(function() {
+$("#namesButton").click(() => {
   markov.setNames($("#namesTextBox").val());
   markov.updateCounts();
   markov.updateTransitions();

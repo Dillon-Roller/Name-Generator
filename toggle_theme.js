@@ -2,7 +2,8 @@
 
 var darkmode_enabled = true;
 
-$('#themeButton').click(function() {
+//get reference to theme button and add event
+$('#themeButton').click(() => {
   if(!darkmode_enabled) {
     $('body').attr('class', 'dark-theme');
     $(this).text("Light");
