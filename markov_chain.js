@@ -15,17 +15,23 @@ class MarkovChain {
   }
 
   generateName() {
-    return this.generateLetters(" ");
+    return this.generateLetters(" ", 0);
   }
 
-  generateLetters(c) {
+  generateLetters(c, i) {
+    if(i > 10) {
+      return "";
+    }
     let index = MarkovChain.charToInt(c);
     let row = this.#transitions[index];
     let letter = this.realizeLetter(row);
     if(letter == " ") { //base case
-      return "";
+      if(i > 1) {
+        return "";
+      }
+      return this.generateLetters(letter, i + 1);
     }
-    return letter + this.generateLetters(letter);
+    return letter + this.generateLetters(letter, i + 1);
   }
   //works
   realizeLetter(v) {
@@ -41,7 +47,6 @@ class MarkovChain {
   }
   //tested
   fillArrays() {
-    //this.#transitions = this.zeros([27, 27]);
     this.#letterCounts = this.zeros([27, 27]);
   }
 
