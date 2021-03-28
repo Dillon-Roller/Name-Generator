@@ -7,23 +7,14 @@
   </head>
   <body class="dark-theme">
     <h1>Name Generation using Markov Chains</h1>
-    <p id="msg">Current tasks:</p>
-    <ul>
-      <li class="list">Input csv file, list of names in form, some way of receiving lists of names</li>
-      <li class="list">Feature: add a button to load names from various different sources</li>
-      <li class="list">Feature: Names are loaded into a buffer, and then update button learns new names from the buffered names</li>
-      <li class="list">Feature: Display probability matrix and update accordingly as the update button is pressed</li>
-      <li class="list">Refactor: Use an actual class instead for MarkovChain</li>
-      <li class="list">Fix: initialize all count arrays to 0</li>
-      <li class="list">Compute number of times each letter goes to another</li>
-      <li class="list">Compute number of times </li>
-      <li class="list">Compute number of times each letter goes to another</li>
-    </ul>
 
     <input type="text" id="namesTextBox" style="width: 300px;" placeholder="CSV of names"/>
 
-    <button id="namesButton" class="btn-theme">Enter</button>
+    <button id="updateButton" class="btn-theme">Update</button>
+    <button id="generateButton" class="btn-theme">Generate</button>
     <button id="themeButton" class="btn">Light</button>
+
+    <p id="generatedName">Generated name: </p>
 
     <!-- Load scripts after webpage is loaded -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
