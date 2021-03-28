@@ -2,7 +2,7 @@
 //Create object for Markov Chain
 class MarkovChain {
   //transitions[i][j] corresponds to the probability that letter i goes to letter j
-  #transitions;
+  #transitions = [];
 
   //one long 
   #names;
@@ -14,9 +14,34 @@ class MarkovChain {
     this.fillArrays();
   }
 
+  generateName() {
+    return this.generateLetters("a");
+  }
+
+  generateLetters(c) {
+    if(c == " ") { //base case
+      return "";
+    }
+    let index = MarkovChain.charToInt(c);
+    let row = this.#transitions[index];
+    let letter = this.realizeLetter(row);
+    return letter + this.generateLetters(letter);
+  }
+  //works
+  realizeLetter(v) {
+    let sum = 0.0
+    let num = Math.random();
+
+    for(let i = 0; i < 27; i++) {
+      sum += v[i];
+      if(num <= sum) {
+        return MarkovChain.intToChar(i);
+      }
+    }
+  }
   //tested
   fillArrays() {
-    this.#transitions = this.zeros([27, 27]);
+    //this.#transitions = this.zeros([27, 27]);
     this.#letterCounts = this.zeros([27, 27]);
   }
 
@@ -35,7 +60,7 @@ class MarkovChain {
 
   //not tested
   static intToChar(n) {
-    return String.fromCharCode(97 + n);
+    return n == 26 ? " " : String.fromCharCode(97 + n);
   }
 
   //not tested
@@ -49,18 +74,22 @@ class MarkovChain {
   };
 
   updateCount(from, to) {
-    this.#letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)]++;
+    this.#letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)] += 1;
   }
 
   updateTransitions() {
-    this.#transitions = [...this.#letterCounts];
+    this.copy2dArray(this.#letterCounts, this.#transitions)
+  
     //convert rows to stochastic vectors
     for(let i = 0; i < this.#transitions.length; i++) {
       MarkovChain.normalize(this.#transitions[i]);
     }
-    console.log(this.#transitions);
   }
-
+  copy2dArray(from, to) {
+    for (var i = 0; i < from.length; i++) {
+      to[i] = from[i].slice();
+    }
+  }
   static normalize(v) {
     let sum = v.reduce((a, b) => a + b);
     for(let i in v) {
@@ -71,7 +100,6 @@ class MarkovChain {
   }
 
   setNames(s) {
-    //TODO: improve this method
     s = s.replace(/\s/g, "");
     this.#names =  " " + s.replace(/,/g, " ");
   };
@@ -96,4 +124,5 @@ $("#namesButton").click(function() {
   markov.setNames($("#namesTextBox").val());
   markov.updateCounts();
   markov.updateTransitions();
+  console.log(`Generated name: ${markov.generateName()}`);
 });
