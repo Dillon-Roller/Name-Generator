@@ -124,5 +124,5 @@ $("#namesButton").click(function() {
   markov.setNames($("#namesTextBox").val());
   markov.updateCounts();
   markov.updateTransitions();
-  markov.generateName();
+  console.log(`Generated name: ${markov.generateName()}`);
 });
