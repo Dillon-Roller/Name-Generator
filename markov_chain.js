@@ -19,17 +19,20 @@ class MarkovChain {
   }
 
   generateLetters(c, i) {
-    if(i > 10) {
+    if(i > 10) { 
+      //if outside bounds
       return "";
     }
     let index = MarkovChain.charToInt(c);
     let row = this.#transitions[index];
     let letter = this.realizeLetter(row);
-    if(letter == " ") { //base case
+    if(letter == " ") { 
       if(i > 1) {
+        //only end on a blank character if we are more than 1 character.
         return "";
       }
-      return this.generateLetters(letter, i + 1);
+      //else try this letter again
+      return this.generateLetters(c, i);
     }
     return letter + this.generateLetters(letter, i + 1);
   }
