@@ -6,11 +6,11 @@ var darkmode_enabled = true;
 $('#themeButton').click(() => {
   if(!darkmode_enabled) {
     $('body').attr('class', 'dark-theme');
-    $(this).text("Light");
+    $(this).text('Light');
   }
   else {
     $('body').attr('class', 'light-theme');
-    $(this).text("Dark");
+    $(this).text('Dark');
   }
   darkmode_enabled = !darkmode_enabled;
 });
