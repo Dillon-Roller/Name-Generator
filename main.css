@@ -11,6 +11,8 @@
 
 body {
   background: var(--bg);
+  margin: auto;
+  width: 50%;
 }
 
 ul {
