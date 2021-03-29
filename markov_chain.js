@@ -128,12 +128,12 @@ $('#namesTextBox').keyup(event => {
 let markov = new MarkovChain();
 
 //works
-$('#updateButton').click(() => {
+$('#updateButton').click(function() {
   markov.setNames($('#namesTextBox').val());
   markov.updateCounts();
   markov.updateTransitions();
 });
 
-$('#generateButton').click(() => {
+$('#generateButton').click(function() {
   $('#generatedName').text(`Generated name: ${markov.generateName()}`);
 });
