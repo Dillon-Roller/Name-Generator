@@ -79,7 +79,7 @@ class MarkovChain {
 
     //last character in list always goes to end state
     this.updateCount(this.#names[this.#names.length - 1], " ");
-  };
+  }
 
   updateCount(from, to) {
     this.#letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)] += 1;
@@ -117,23 +117,25 @@ class MarkovChain {
   }
 }
 
+$(document).ready(function(){
+  let markov = new MarkovChain();
+
+  $('#namesTextBox').keyup(event => {
+    if (event.keyCode === 13) { //enter is pressed in textbox
+      $('#updateButton').click();
+    }
+  });
+  
+  //works
+  $('#updateButton').click(function() {
+    markov.setNames($('#namesTextBox').val());
+    markov.updateCounts();
+    markov.updateTransitions();
+  });
+  
+  $('#generateButton').click(function() {
+    $('#generatedName').text(`Generated name: ${markov.generateName()}`);
+  });
+});
 //works
-$('#namesTextBox').keyup(event => {
-  if (event.keyCode === 13) { //enter is pressed in textbox
-    $('#updateButton').click();
-  }
-});
 
-//create markov object
-let markov = new MarkovChain();
-
-//works
-$('#updateButton').click(function() {
-  markov.setNames($('#namesTextBox').val());
-  markov.updateCounts();
-  markov.updateTransitions();
-});
-
-$('#generateButton').click(function() {
-  $('#generatedName').text(`Generated name: ${markov.generateName()}`);
-});

@@ -1,16 +1,18 @@
 'use strict'
 
-var darkmode_enabled = true;
+$(document).ready(function(){
+  var darkmode_enabled = true;
 
-//get reference to theme button and add event
-$('#themeButton').click(function() {
-  if(!darkmode_enabled) {
-    $('body').attr('class', 'dark-theme');
-    $(this).text('Light');
-  }
-  else {
-    $('body').attr('class', 'light-theme');
-    $(this).text('Dark');
-  }
-  darkmode_enabled = !darkmode_enabled;
+  //get reference to theme button and add event
+  $('#themeButton').click(function() {
+    if(!darkmode_enabled) {
+      $('body').attr('class', 'dark-theme');
+      $(this).text('Light');
+    }
+    else {
+      $('body').attr('class', 'light-theme');
+      $(this).text('Dark');
+    }
+    darkmode_enabled = !darkmode_enabled;
+  });
 });
