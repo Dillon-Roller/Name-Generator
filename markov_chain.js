@@ -86,14 +86,14 @@ class MarkovChain {
   }
 
   updateTransitions() {
-    this.copy2dArray(this.#letterCounts, this.#transitions)
+    MarkovChain.copy2dArray(this.#letterCounts, this.#transitions)
   
     //convert rows to stochastic vectors
     for(let i = 0; i < this.#transitions.length; i++) {
       MarkovChain.normalize(this.#transitions[i]);
     }
   }
-  copy2dArray(from, to) {
+  static copy2dArray(from, to) {
     for (var i = 0; i < from.length; i++) {
       to[i] = from[i].slice();
     }
