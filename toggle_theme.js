@@ -1,10 +1,11 @@
 'use strict'
 
+//run when DOM is ready
 $(document).ready(function(){
+  const themeButtonID = '#themeButton';
   var darkmode_enabled = true;
 
-  //get reference to theme button and add event
-  $('#themeButton').click(function() {
+  $(themeButtonID).click(function() {
     if(!darkmode_enabled) {
       $('body').attr('class', 'dark-theme');
       $(this).text('Light');
