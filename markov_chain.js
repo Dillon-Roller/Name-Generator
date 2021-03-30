@@ -10,8 +10,8 @@ class MarkovChain {
   //letterCounts[i][j] corresponds to the number of times letter i goes to letter j
   #letterCounts; 
 
-  constructor() {
-    this.fillArrays();
+  constructor(order) {
+    this.fillCountArray(order);
   }
 
   generateName() {
@@ -49,8 +49,8 @@ class MarkovChain {
     }
   }
   //tested
-  fillArrays() {
-    this.#letterCounts = this.zeros([27, 27]);
+  fillCountArray(order) {
+    this.#letterCounts = this.zeros([26**order + 1, 26**order + 1]);
   }
 
   zeros(dimensions) {
@@ -124,7 +124,7 @@ $(document).ready(function(){
   const generateButtonID = '#generateButton';
   const generatedNameTextBoxID = '#generatedName';
 
-  let markov = new MarkovChain();
+  let markov = new MarkovChain(1);
 
   $(namesTextBoxID).keyup(event => {
     if (event.keyCode === 13) { //enter is pressed in textbox
