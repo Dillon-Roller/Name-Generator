@@ -117,31 +117,4 @@ class MarkovChain {
   }
 }
 
-//run when DOM is ready
-$(document).ready(function(){
-  const namesTextBoxID = '#namesTextBox';
-  const updateButtonID = '#updateButton';
-  const generateButtonID = '#generateButton';
-  const generatedNameTextBoxID = '#generatedName';
-
-  let markov = new MarkovChain();
-
-  $(namesTextBoxID).keyup(event => {
-    if (event.keyCode === 13) { //enter is pressed in textbox
-      $(updateButtonID).click();
-    }
-  });
-  
-  //works
-  $(updateButtonID).click(function() {
-    markov.setNames($(namesTextBoxID).val());
-    markov.updateCounts();
-    markov.updateTransitions();
-  });
-  
-  $(generateButtonID).click(function() {
-    $(generatedNameTextBoxID).text(`Generated name: ${markov.generateName()}`);
-  });
-});
-//works
 
