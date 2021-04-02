@@ -5,7 +5,7 @@ $(document).ready(() => {
   const generatedNameTextBoxID = '#generatedName';
   const themeButtonID = '#themeButton';
 
-  var markov = new MarkovChain();
+  var markov = new MarkovChain(1);
   var darkmode_enabled = true;
 
   $(themeButtonID).click(function() {
