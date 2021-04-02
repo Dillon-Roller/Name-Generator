@@ -1,10 +1,11 @@
 'use strict'
 //Create object for Markov Chain
+const ALPHABET_SIZE = 26;
 class MarkovChain {
   //transitions[i][j] corresponds to the probability that letter i goes to letter j
   #transitions = [];
 
-  //one long 
+  //string to hold all names. Space is appended to beginning and end
   #names;
 
   //letterCounts[i][j] corresponds to the number of times letter i goes to letter j
@@ -37,21 +38,22 @@ class MarkovChain {
     }
     return letter + this.generateLetters(letter, i + 1);
   }
-  //works
+  
   realizeLetter(v) {
     let sum = 0.0
     let num = Math.random();
 
-    for(let i = 0; i < 27; i++) {
+    for(let i = 0; i < v.length; i++) {
       sum += v[i];
       if(num <= sum) {
         return MarkovChain.intToChar(i);
       }
     }
   }
-  //tested
+  
   fillCountArray(order) {
-    this.#letterCounts = this.zeros([26**order + 1, 27]);
+    //+1 for whitespace character added to alphabet
+    this.#letterCounts = this.zeros([ALPHABET_SIZE**order + 1, ALPHABET_SIZE + 1]);
   }
 
   zeros(dimensions) {
@@ -62,17 +64,14 @@ class MarkovChain {
     return array;
   }
 
-  //not tested
   static charToInt(c) {
-    return c == " " ? 26 : c.toLowerCase().charCodeAt(0) - 97;
+    return c == " " ? ALPHABET_SIZE : c.toLowerCase().charCodeAt(0) - 97;
   }
 
-  //not tested
   static intToChar(n) {
-    return n == 26 ? " " : String.fromCharCode(97 + n);
+    return n == ALPHABET_SIZE ? " " : String.fromCharCode(97 + n);
   }
 
-  //not tested
   updateCounts() {
     for(let i = 0; i < this.#names.length - 1; i++) {
       this.updateCount(this.#names[i], this.#names[i + 1]);
@@ -92,7 +91,7 @@ class MarkovChain {
     }
   }
   static copy2dArray(from, to) {
-    for (var i = 0; i < from.length; i++) {
+    for (let i = 0; i < from.length; i++) {
       to[i] = from[i].slice();
     }
   }
