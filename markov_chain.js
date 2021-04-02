@@ -15,7 +15,8 @@ class MarkovChain {
   }
 
   generateName() {
-    return this.generateLetters(" ", 0);
+    let result = this.generateLetters(" ", 0);
+    return result.charAt(0).toUpperCase() + result.slice(1);
   }
 
   generateLetters(c, i) {
@@ -117,31 +118,4 @@ class MarkovChain {
   }
 }
 
-//run when DOM is ready
-$(document).ready(function(){
-  const namesTextBoxID = '#namesTextBox';
-  const updateButtonID = '#updateButton';
-  const generateButtonID = '#generateButton';
-  const generatedNameTextBoxID = '#generatedName';
-
-  let markov = new MarkovChain();
-
-  $(namesTextBoxID).keyup(event => {
-    if (event.keyCode === 13) { //enter is pressed in textbox
-      $(updateButtonID).click();
-    }
-  });
-  
-  //works
-  $(updateButtonID).click(function() {
-    markov.setNames($(namesTextBoxID).val());
-    markov.updateCounts();
-    markov.updateTransitions();
-  });
-  
-  $(generateButtonID).click(function() {
-    $(generatedNameTextBoxID).text(`Generated name: ${markov.generateName()}`);
-  });
-});
-//works
 
