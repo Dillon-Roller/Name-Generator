@@ -51,7 +51,7 @@ class MarkovChain {
   }
   //tested
   fillCountArray(order) {
-    this.#letterCounts = this.zeros([26**order + 1, 26**order + 1]);
+    this.#letterCounts = this.zeros([26**order + 1, 27]);
   }
 
   zeros(dimensions) {
