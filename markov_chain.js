@@ -15,7 +15,8 @@ class MarkovChain {
   }
 
   generateName() {
-    return this.generateLetters(" ", 0);
+    let result = this.generateLetters(" ", 0);
+    return result.charAt(0).toUpperCase() + result.slice(1);
   }
 
   generateLetters(c, i) {
