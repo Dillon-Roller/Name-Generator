@@ -77,9 +77,6 @@ class MarkovChain {
     for(let i = 0; i < this.#names.length - 1; i++) {
       this.updateCount(this.#names[i], this.#names[i + 1]);
     }
-
-    //last character in list always goes to end state
-    this.updateCount(this.#names[this.#names.length - 1], " ");
   }
 
   updateCount(from, to) {
@@ -110,7 +107,7 @@ class MarkovChain {
 
   setNames(s) {
     s = s.replace(/\s/g, "");
-    this.#names =  " " + s.replace(/,/g, " ");
+    this.#names =  " " + s.replace(/,/g, " ") + " ";
   };
 
   getNames() {
