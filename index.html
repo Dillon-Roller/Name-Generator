@@ -12,14 +12,21 @@
     <input type="text" id="namesTextBox" style="width: 300px;" placeholder="CSV of names"/>
 
     <button id="updateButton" class="btn-theme">Update</button>
-    <button id="generateButton" class="btn-theme">Generate</button>
     <button id="themeButton" class="btn">Light</button>
 
+    <br><br>
+
+    <input type='file' id='file' enctype='multipart/form-data'>
+    
+    <br><br>
+
+    <button id="generateButton" class="btn-theme">Generate</button>
+    
     <p id="generatedName">Generated name: </p>
 
     <!-- Load scripts after webpage is loaded -->
-    <script src="toggle_theme.js"></script>
     <script src="markov_chain.js"></script>
+    <script src="app.js"></script>
 
   </body>
 </html>
