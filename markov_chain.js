@@ -80,7 +80,7 @@ class MarkovChain {
   }
 
   updateCount(from, to) {
-    this.#letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)] += 1;
+    this.#letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)]++;
   }
 
   updateTransitions() {
