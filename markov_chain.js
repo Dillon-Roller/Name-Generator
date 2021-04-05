@@ -8,35 +8,41 @@ class MarkovChain {
   //string to hold all names. Space is appended to beginning and end
   #names;
 
+  //order of this markov chain
+  #order;
+
   //letterCounts[i][j] corresponds to the number of times letter i goes to letter j
   #letterCounts; 
 
   constructor(order) {
-    this.fillCountArray(order);
+    this.#order = order;
+    this.fillCountArray();
   }
 
   generateName() {
-    let result = this.generateLetters(" ", 0);
+    let first = this.generateFirstLetters();
+    let result = first + this.generateNextLetter(first);
     return result.charAt(0).toUpperCase() + result.slice(1);
   }
 
-  generateLetters(c, i) {
-    if(i > 10) { 
-      //if outside bounds
+  generateFirstLetters() {
+    let result = ""; 
+    //first letter is probability of getting that letter after a blank space
+    let letter = " "; 
+
+    for(let i = 0; i < order; i++) {
+      letter = this.realizeLetter(this.#transitions[MarkovChain.charToInt(letter)]);
+      result += letter;
+    }
+  }
+
+  generateNextLetter(letters) {
+    let next_letter = this.realizeLetter(this.#transitions[MarkovChain.charToInt(letters)]);
+
+    if(next_letter == " ") { //base
       return "";
     }
-    let index = MarkovChain.charToInt(c);
-    let row = this.#transitions[index];
-    let letter = this.realizeLetter(row);
-    if(letter == " ") { 
-      if(i > 1) {
-        //only end on a blank character if we are more than 1 character.
-        return "";
-      }
-      //else try this letter again
-      return this.generateLetters(c, i);
-    }
-    return letter + this.generateLetters(letter, i + 1);
+    return next_letter + this.generateNextLetter(letters.slice(1) + next_letter);
   }
   
   realizeLetter(v) {
@@ -46,30 +52,47 @@ class MarkovChain {
     for(let i = 0; i < v.length; i++) {
       sum += v[i];
       if(num <= sum) {
-        return MarkovChain.intToChar(i);
+        return this.intToChar(i);
       }
     }
   }
   
-  fillCountArray(order) {
-    //+1 for whitespace character added to alphabet
-    this.#letterCounts = this.zeros([ALPHABET_SIZE**order + 1, ALPHABET_SIZE + 1]);
+  fillCountArray() {
+    //+1 for whitespace character
+    this.#letterCounts = this.zeros([ALPHABET_SIZE**this.#order + 1, ALPHABET_SIZE + 1]);
   }
 
   zeros(dimensions) {
     var array = [];
-    for (var i = 0; i < dimensions[0]; ++i) {
+    for (let i = 0; i < dimensions[0]; i++) {
       array.push(dimensions.length == 1 ? 0 : this.zeros(dimensions.slice(1)));
     }
     return array;
   }
 
-  static charToInt(c) {
-    return c == " " ? ALPHABET_SIZE : c.toLowerCase().charCodeAt(0) - 97;
+  charToInt(c) {
+    if(c == 1) {
+      return c == " " ? ALPHABET_SIZE**this.#order + 1 : c.toLowerCase().charCodeAt(0) - 97;
+    }
+
+    let sum = 0;
+    let power = c.length - 1;
+
+    for(let i = 0; i < c.length - 1; i++) {
+      sum += this.charToInt(c[i]) * ALPHABET_SIZE**power
+      power--;
+    }
+    return sum;
   }
 
-  static intToChar(n) {
-    return n == ALPHABET_SIZE ? " " : String.fromCharCode(97 + n);
+  intToChar(n) {
+    if(n == ALPHABET_SIZE**this.#order + 1) {
+      return " ";
+    }
+    if(n > ALPHABET_SIZE) {
+      return this.intToChar(Math.trunc(n / ALPHABET_SIZE)) + this.intToChar(n % ALPHABET_SIZE);
+    }
+    return String.fromCharCode(97 + n);
   }
 
   updateCounts() {
@@ -79,7 +102,7 @@ class MarkovChain {
   }
 
   updateCount(from, to) {
-    this.#letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)]++;
+    this.#letterCounts[this.charToInt(from)][this.charToInt(to)]++;
   }
 
   updateTransitions() {
