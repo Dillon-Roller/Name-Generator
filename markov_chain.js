@@ -71,7 +71,7 @@ class MarkovChain {
   }
 
   charToInt(c) {
-    if(c == 1) {
+    if(c.length == 1) {
       return c == " " ? ALPHABET_SIZE**this.#order + 1 : c.toLowerCase().charCodeAt(0) - 97;
     }
 
