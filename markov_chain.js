@@ -2,13 +2,13 @@
 //Create object for Markov Chain
 class MarkovChain {
   //transitions[i][j] corresponds to the probability that letter i goes to letter j
-  #transitions = [];
+  transitions = [];
 
   //one long 
-  #names;
+  names;
 
   //letterCounts[i][j] corresponds to the number of times letter i goes to letter j
-  #letterCounts; 
+  letterCounts; 
 
   constructor() {
     this.fillArrays();
@@ -25,7 +25,7 @@ class MarkovChain {
       return "";
     }
     let index = MarkovChain.charToInt(c);
-    let row = this.#transitions[index];
+    let row = this.transitions[index];
     let letter = this.realizeLetter(row);
     if(letter == " ") { 
       if(i > 1) {
@@ -51,7 +51,7 @@ class MarkovChain {
   }
   //tested
   fillArrays() {
-    this.#letterCounts = this.zeros([27, 27]);
+    this.letterCounts = this.zeros([27, 27]);
   }
 
   zeros(dimensions) {
@@ -74,24 +74,24 @@ class MarkovChain {
 
   //not tested
   updateCounts() {
-    for(let i = 0; i < this.#names.length - 1; i++) {
-      this.updateCount(this.#names[i], this.#names[i + 1]);
+    for(let i = 0; i < this.names.length - 1; i++) {
+      this.updateCount(this.names[i], this.names[i + 1]);
     }
 
     //last character in list always goes to end state
-    this.updateCount(this.#names[this.#names.length - 1], " ");
+    this.updateCount(this.names[this.names.length - 1], " ");
   }
 
   updateCount(from, to) {
-    this.#letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)] += 1;
+    this.letterCounts[MarkovChain.charToInt(from)][MarkovChain.charToInt(to)] += 1;
   }
 
   updateTransitions() {
-    MarkovChain.copy2dArray(this.#letterCounts, this.#transitions)
+    MarkovChain.copy2dArray(this.letterCounts, this.transitions)
   
     //convert rows to stochastic vectors
-    for(let i = 0; i < this.#transitions.length; i++) {
-      MarkovChain.normalize(this.#transitions[i]);
+    for(let i = 0; i < this.transitions.length; i++) {
+      MarkovChain.normalize(this.transitions[i]);
     }
   }
   static copy2dArray(from, to) {
@@ -110,11 +110,11 @@ class MarkovChain {
 
   setNames(s) {
     s = s.replace(/\s/g, "");
-    this.#names =  " " + s.replace(/,/g, " ");
+    this.names =  " " + s.replace(/,/g, " ");
   };
 
   getNames() {
-    return this.#names;
+    return this.names;
   }
 }
 
