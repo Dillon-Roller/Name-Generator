@@ -30,14 +30,14 @@ class MarkovChain {
     //first letter is probability of getting that letter after a blank space
     let letter = " "; 
 
-    for(let i = 0; i < order; i++) {
-      letter = this.realizeLetter(this.#transitions[MarkovChain.charToInt(letter)]);
+    for(let i = 0; i < this.#order; i++) {
+      letter = this.realizeLetter(this.#transitions[this.charToInt(letter)]);
       result += letter;
     }
   }
 
   generateNextLetter(letters) {
-    let next_letter = this.realizeLetter(this.#transitions[MarkovChain.charToInt(letters)]);
+    let next_letter = this.realizeLetter(this.#transitions[this.charToInt(letters)]);
 
     if(next_letter == " ") { //base
       return "";
